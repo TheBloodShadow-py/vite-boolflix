@@ -29,16 +29,23 @@ export default {
             this.store.isPopular = false;
           }
         });
+      } else {
+        this.store.films = [];
       }
+    },
+    fetchPopular: function () {
+      this.fetchData(this.popular, this.apiKey, undefined, true);
+      this.store.query = "";
+      this.store.isPopular = true;
     },
   },
   beforeMount() {
-    this.fetchData(this.popular, this.apiKey, undefined, true);
+    this.fetchPopular();
   },
 };
 </script>
 
 <template>
-  <NavBar @searchEvent="fetchData(this.apiUrlFilm, this.apiKey, this.store.query)" />
+  <NavBar @resetPopular="fetchPopular()" @searchEvent="fetchData(this.apiUrlFilm, this.apiKey, this.store.query)" />
   <Cards />
 </template>

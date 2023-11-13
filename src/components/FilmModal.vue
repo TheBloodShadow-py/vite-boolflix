@@ -22,6 +22,15 @@ export default {
       }
       return this.currentData.overview;
     },
+    langLoader: function () {
+      if (this.currentData.original_language === "en") {
+        return "https://flagcdn.com/144x108/us.png";
+      } else if (this.currentData.original_language === "ja") {
+        return "https://flagcdn.com/144x108/jp.png";
+      } else {
+        return `https://flagcdn.com/144x108/${this.currentData.original_language}.png`;
+      }
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -33,7 +42,9 @@ export default {
 
 <template>
   <div class="fixed top-0 left-0 z-10 w-full h-full bg-[rgba(53,53,53,0.4)]">
-    <div class="absolute flex flex-col gap-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#0f0d0df3] rounded-md drop-shadow-lg">
+    <div
+      class="absolute scale-110 md:scale-100 lg:scale-90 flex flex-col gap-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#0f0d0df3] rounded-md drop-shadow-lg"
+    >
       <div class="relative">
         <button
           v-if="isImageLoaded"
@@ -41,6 +52,7 @@ export default {
         >
           Play <font-awesome-icon :icon="['fas', 'play']" />
         </button>
+        <img :src="langLoader" class="w-[36px] h-[27px] absolute left-[20px] top-4" v-if="isImageLoaded" />
         <button
           v-if="isImageLoaded"
           @click="$emit('closeModal')"
@@ -48,11 +60,11 @@ export default {
         >
           X
         </button>
-        <img v-show="isImageLoaded" class="rounded-t-md w-full h-full" draggable="false" :src="imageLoader" />
+        <img v-show="isImageLoaded" class="rounded-t-md h-full w-full" draggable="false" :src="imageLoader" />
         <div v-if="!isImageLoaded" class="flex items-center justify-center mt-8"><span class="loader"></span></div>
       </div>
-      <div class="flex flex-col p-5 gap-1">
-        <h3 class="text-lg text-red-500">{{ currentData.original_title }}</h3>
+      <div class="flex flex-col p-5 gap-1 max-w-[600px]">
+        <h3 class="text-lg text-red-500">{{ currentData.title }}</h3>
         <p class="text-sm lg:text-base font-light">{{ textLoader }}</p>
       </div>
     </div>

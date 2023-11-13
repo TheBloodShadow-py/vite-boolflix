@@ -30,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <div class="container my-0 mx-auto transition-all duration-300">
+  <main class="container my-0 mx-auto transition-all duration-300">
     <span v-if="store.query" class="p-1 font-bold text-lg"
       >Ricerca: <span class="text-lg font-normal"> {{ store.query }}</span></span
     >
@@ -39,5 +39,5 @@ export default {
       <Card v-for="film in store.films" @modalHandle="modalStatusSwitcher" :currentData="film" />
       <FilmModal @closeModal="modalStatusSwitcher" v-if="modalStatus" :currentData="modalData" @wheel.prevent @touchmove.prevent @scroll.prevent />
     </div>
-  </div>
+  </main>
 </template>

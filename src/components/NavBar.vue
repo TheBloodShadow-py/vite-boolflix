@@ -20,7 +20,7 @@ export default {
             <li>Home</li>
             <li>Serie Tv</li>
             <li>Film</li>
-            <li>Nuovi e popolari</li>
+            <li @click="$emit('resetPopular')">Nuovi e popolari</li>
             <li>La mia lista</li>
             <li>Sfoglia per lingua</li>
           </ul>
@@ -28,7 +28,7 @@ export default {
         </div>
         <ul class="flex items-center gap-4">
           <li>
-            <input type="text" @keyup.enter="$emit('searchEvent')" v-model="store.query" />
+            <input type="text" @input="$emit('searchEvent')" v-model="store.query" />
           </li>
           <li>test</li>
           <li>test</li>
