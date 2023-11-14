@@ -17,7 +17,7 @@ export default {
         <div class="flex items-center gap-6">
           <img draggable="false" src="/logo.png" class="w-[120px]" />
           <ul class="hidden items-center gap-4 2xl:gap-6 lg:flex whitespace-nowrap">
-            <li>Home</li>
+            <li @click="$emit('resetPopular')">Home</li>
             <li>Serie Tv</li>
             <li>Film</li>
             <li @click="$emit('resetPopular')">Nuovi e popolari</li>
@@ -28,7 +28,7 @@ export default {
         </div>
         <ul class="flex items-center gap-4">
           <li>
-            <input type="text" @input="$emit('searchEvent')" v-model="store.query" />
+            <input type="text" @keyup.enter="$emit('searchEvent')" v-model="store.query" />
           </li>
           <li>test</li>
           <li>test</li>

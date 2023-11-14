@@ -21,22 +21,35 @@ export default {
     };
   },
   methods: {
-    fetchData: function (apiUrl, key, query, isPopular) {
+    fetchData: function (apiUrl, key, query, isPopular, isFilm, isTv) {
       if (query !== "") {
         axios.get(apiUrl, { params: { api_key: key, language: this.apiLang, query: query } }).then((resp) => {
-          this.store.films = resp.data.results;
           if (!isPopular) {
             this.store.isPopular = false;
+            if (isFilm) {
+              this.store.films = resp.data.results;
+            }
+            if (isTv) {
+              this.store.tvSeries = resp.data.results;
+            }
+          }
+          if (isPopular) {
+            this.store.populars = resp.data.results;
           }
         });
       } else {
+        this.store.populars = resp.data.results;
         this.store.films = [];
       }
     },
     fetchPopular: function () {
-      this.fetchData(this.popular, this.apiKey, undefined, true);
+      this.fetchData(this.popular, this.apiKey, undefined, true, undefined, undefined);
       this.store.query = "";
       this.store.isPopular = true;
+    },
+    fetchSearch: function () {
+      this.store.films = this.fetchData(this.apiUrlFilm, this.apiKey, this.store.query, false, true, false);
+      this.store.tvSeries = this.fetchData(this.apiUrlTv, this.apiKey, this.store.query, false, false, true);
     },
   },
   beforeMount() {
@@ -46,6 +59,6 @@ export default {
 </script>
 
 <template>
-  <NavBar @resetPopular="fetchPopular()" @searchEvent="fetchData(this.apiUrlFilm, this.apiKey, this.store.query)" />
+  <NavBar @resetPopular="fetchPopular()" @searchEvent="fetchSearch()" />
   <Cards />
 </template>

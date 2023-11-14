@@ -31,6 +31,13 @@ export default {
         return `https://flagcdn.com/144x108/${this.currentData.original_language}.png`;
       }
     },
+    titleLoader: function () {
+      if (this.currentData.title) {
+        return this.currentData.title + " - Film";
+      } else {
+        return this.currentData.name + " - Serie TV";
+      }
+    },
   },
   mounted() {
     setTimeout(() => {
@@ -64,7 +71,7 @@ export default {
         <div v-if="!isImageLoaded" class="flex items-center justify-center mt-8"><span class="loader"></span></div>
       </div>
       <div class="flex flex-col p-5 gap-1 max-w-[600px]">
-        <h3 class="text-lg text-red-500">{{ currentData.title }}</h3>
+        <h3 class="text-lg text-red-500">{{ titleLoader }}</h3>
         <p class="text-sm lg:text-base font-light">{{ textLoader }}</p>
       </div>
     </div>
