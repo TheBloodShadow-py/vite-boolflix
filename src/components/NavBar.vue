@@ -28,11 +28,14 @@ export default {
         </div>
         <ul class="flex items-center gap-4">
           <li>
-            <input type="text" @keyup.enter="$emit('searchEvent')" v-model="store.query" />
+            <input
+              class="p-2 rounded bg-transparent focus-visible:outline-none border-white border"
+              type="text"
+              placeholder="Film, Serie TV ..."
+              @keyup.enter="$emit('searchEvent')"
+              v-model="store.query"
+            />
           </li>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
         </ul>
       </div>
     </div>
